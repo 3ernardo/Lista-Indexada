@@ -90,10 +90,56 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 		private Node previous = null;
 
 		public void starter() {
-			current = head;
+			if (current == null) {
+				current = head;
+			}
 		}
 		
 		@Override
+		public boolean hasNext() {
+			starter();
+			return current.getNext() != null;
+		}
+		
+		@Override
+		public boolean hasPrev() {
+			starter();
+			return current.getPrev() != null;
+		}
+		
+		@Override
+		public String next() {
+			starter();
+			if (hasNext()) {
+				current = current.getNext();
+				return current.dado;
+			} else {
+				return "Não há elemento posterior.";
+			}
+		}
+		
+		@Override
+		public String prev() {
+			starter();
+			if (hasPrev()) {
+				current = current.getPrev();
+				return current.dado;
+			} else {
+				return "Não há elemento anterior.";
+			}
+		}
+		
+		@Override
+		public void goToTail() {
+			current = tail;
+		}
+		
+		@Override
+		public void goToHead() {
+			current = head;
+		}
+		
+		/*@Override
 		public boolean hasNext() {
 			if (current == null)
 				return head != null;
@@ -106,7 +152,7 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 				return head != null;
 			return current.getPrev() != null;
 		}
-
+		
 		@Override
 		public String next() {
 			if (current == null) {
@@ -126,29 +172,19 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 				return current.dado;
 			}
 		}	
+		*/
+
 		
-		@Override
-		public void goToTail() {
-			current = tail;
-		}
-		
-		@Override
-		public void goToHead() {
-			current = head;
-		}
+
 
 		@Override
-		public void insert(String dado) {
-			if (current == null) {
-				throw new IllegalStateException("Use next()!");
-			}
+		public void insertPrev(String dado) {
 			Node node = new Node(dado);
+			starter();
 			node.setNext(current);
-			node.setPrev(previous);
-			if (previous == null) {
-				head = node;
-			} else {
-				previous.setNext(node);
+			if (hasPrev()) {
+				node.setPrev(current.getPrev());
+				current.getPrev().setNext(node);
 			}
 			current.setPrev(node);
 		}

@@ -24,13 +24,16 @@ public class Sistema {
 		lista.inserirNoFim("Seis");
 		
 		Iterador iter = lista.iterator();
+		//iter.next();
+		//iter.prev();
+		//iter.insertPrev("inserido 1");
+		/*System.out.println(iter.hasPrev());
+		System.out.println(iter.hasNext());
 		iter.starter();
-		iter.prev();
-		/*System.out.println(iter.getPrev());
+		System.out.println(iter.prev());
 		System.out.println(iter.hasPrev());
 		iter.next();
 		iter.prev();
-		System.out.println(iter.getPrev());
 		System.out.println(iter.hasPrev());		
 		iter.next();
 		iter.next();
@@ -53,17 +56,19 @@ public class Sistema {
 		iter.prev();
 		iter.prev();
 		iter.prev();
-		iter.insert("inserido 2");
+		iter.insertPrev("inserido 2");
 		iter.goToHead();
-		iter.next();
-		iter.insert("inserido 1");
-		iter.next();
+		iter.insertPrev("inserido 1");
 		iter.next();
 		iter.next();
-		iter.insert("inserido 2");*/
+		iter.next();
+		iter.insertPrev("inserido 2");*/
 		
 		System.out.println("/////////////////////");
 		
+		lista.imprime();
+		
+		System.out.println("/////////////////////");
 		
 		for (String s : lista) {
 			System.out.println(s);
