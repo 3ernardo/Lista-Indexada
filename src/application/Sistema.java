@@ -16,53 +16,39 @@ public class Sistema {
 		}
 		
 		ListaDuplamenteEncadeada lista = new ListaDuplamenteEncadeada();
-		lista.inserirNoFim("Um");
-		lista.inserirNoFim("Dois");
-		lista.inserirNoFim("Três");
-		lista.inserirNoFim("Quatro");
-		lista.inserirNoFim("Cinco");
-		lista.inserirNoFim("Seis");
+		lista.inserirNoFim("Ana");
+		lista.inserirNoFim("Beto");
+		lista.inserirNoFim("Cris");
+		lista.inserirNoFim("Dani");
+		lista.inserirNoFim("Erik");
+		lista.inserirNoFim("Fabi");
+		lista.inserirNoFim("Gabi");
+		lista.inserirNoFim("Hugo");
+		lista.inserirNoFim("Ivo");
+		lista.inserirNoFim("Jean");
+		lista.inserirNoFim("Kely");
+		lista.inserirNoFim("Lara");
 		
 		Iterador iter = lista.iterator();
-		//iter.next();
-		//iter.prev();
-		//iter.insertPrev("inserido 1");
-		/*System.out.println(iter.hasPrev());
-		System.out.println(iter.hasNext());
-		iter.starter();
-		System.out.println(iter.prev());
-		System.out.println(iter.hasPrev());
-		iter.next();
-		iter.prev();
-		System.out.println(iter.hasPrev());		
-		iter.next();
-		iter.next();
-		iter.next();
-		iter.next();
-		iter.next();
-		iter.next();
-		System.out.println(iter.hasNext());
-		iter.next();
-		System.out.println(iter.hasPrev());
-		System.out.println(iter.hasNext());
-		iter.next();
-		iter.next();
-		iter.next();
-		System.out.println(iter.hasNext());
 		iter.goToTail();
-		iter.prev();
-		iter.prev();
-		iter.prev();
-		iter.prev();
-		iter.prev();
-		iter.prev();
-		iter.insertPrev("inserido 2");
-		iter.goToHead();
-		iter.insertPrev("inserido 1");
-		iter.next();
-		iter.next();
-		iter.next();
-		iter.insertPrev("inserido 2");*/
+		System.out.println(iter.now());
+		while (iter.hasPrev()){
+			System.out.println(iter.prev());
+		}
+		
+		String nome = "";
+		while (!nome.equals("0")) {
+			iter.goToHead();
+			boolean whil = false;
+			System.out.println("/////////////////////");
+			System.out.println("Insira um nome:");
+			nome = input.next();
+			while (!whil) {
+				whil = iter.sortedInsert(nome);
+			}
+			System.out.println("/////////////////////");
+			lista.imprime();
+		}
 		
 		System.out.println("/////////////////////");
 		
@@ -70,10 +56,31 @@ public class Sistema {
 		
 		System.out.println("/////////////////////");
 		
-		for (String s : lista) {
-			System.out.println(s);
-		}		
 		
+		
+		while (true) {
+			System.out.println("Um:");
+			String um = input.next();
+			System.out.println("Dois:");
+			String dois = input.next();
+			System.out.println(teste(um, dois));
+		}
+	}
+	
+	/*
+	public static boolean insertInOrder(String current, String dado) {
+		boolean posicionado = false;
+		if (current.compareToIgnoreCase(dado) == 0) {
+			posicionado = true;
+		} else if (current.compareToIgnoreCase(dado) > 0) { // vai antes
+			
+		} else if (current.compareToIgnoreCase(dado) < 0) { // vai depois
+			
+		}
+	}*/
+	
+	public static int teste(String um, String dois) {
+		return um.compareToIgnoreCase(dois);
 	}
 	
 	public static void setNum(int num){

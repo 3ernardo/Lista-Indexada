@@ -1,15 +1,14 @@
 package application;
 
-import java.util.Iterator;
-
 public class ListaDuplamenteEncadeada implements Iterable<String> {
 
 	//===============================================================
-	//	Lista
+	//	Lista;
 	//===============================================================
 	
 	private Node head = null;
 	private Node tail = null;
+	private int elementos = 0;
 
 	public void inserirNoFim(String dado) {
 		Node node = new Node(dado);
@@ -20,6 +19,7 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 			node.setPrev(tail);
 		}
 		tail = node;
+		elementos++;
 	}
 	
 	public void inserirNoInicio(String dado) {
@@ -31,6 +31,7 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 			node.setNext(head);
 		}
 		head = node;
+		elementos++;
 	}
 	
 	public void imprime() {
@@ -41,13 +42,17 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 		}
 	}
 	
+	public int getElementos() {
+		return elementos;
+	}
+	
 	@Override
 	public Iterador iterator() {
 		return new ListaIterator() ;
 	}
 	
 	//===============================================================
-	//	Elo: são os objetos que compõe a lista duplamente encadeada;
+	//	Elo;
 	//===============================================================
 	
 	private class Node {
@@ -77,22 +82,23 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 		public Node getPrev() {
 			return prevNode;
 		}
-		
 	}
 	
 	//===============================================================
-	//	Iterador: ;
+	//	Iterador;
 	//===============================================================
 	
 	private class ListaIterator implements Iterador {
 
 		private Node current = null;
-		private Node previous = null;
 
 		public void starter() {
-			if (current == null) {
+			if (current == null)
 				current = head;
-			}
+		}
+		
+		public String now() {
+			return current.dado;
 		}
 		
 		@Override
@@ -139,44 +145,6 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 			current = head;
 		}
 		
-		/*@Override
-		public boolean hasNext() {
-			if (current == null)
-				return head != null;
-			return current.getNext() != null;
-		}
-		
-		@Override
-		public boolean hasPrev() {
-			if (current == null)
-				return head != null;
-			return current.getPrev() != null;
-		}
-		
-		@Override
-		public String next() {
-			if (current == null) {
-				current = head;
-			} else {
-				current = current.getNext();
-			}
-			return current.dado;
-		}
-		
-		@Override
-		public String prev() {
-			if (!hasPrev()) {
-				return "Não há elemento anterior.";
-			} else {
-				current = current.getPrev();
-				return current.dado;
-			}
-		}	
-		*/
-
-		
-
-
 		@Override
 		public void insertPrev(String dado) {
 			Node node = new Node(dado);
@@ -185,44 +153,79 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 			if (hasPrev()) {
 				node.setPrev(current.getPrev());
 				current.getPrev().setNext(node);
+			} else {
+				head = node;
 			}
 			current.setPrev(node);
+			elementos++;
 		}
 
-		//@Override
-		public void inserirNoFim(String dado) {
-			if (current == null) {
-				throw new IllegalStateException("Use next()!");
-			}
+		@Override
+		public void insertNext(String dado) {
 			Node node = new Node(dado);
-			Node anterior = current.getPrev();
-			Node proximo = current.getNext();
-			node.setNext(proximo);
-			current.setNext(node);
-			if (proximo == null) {
+			starter();
+			node.setPrev(current);
+			if (hasNext()) {
+				node.setNext(current.getNext());
+				current.getNext().setPrev(node);
+			} else {
 				tail = node;
 			}
+			current.setNext(node);
+			elementos++;
 		}
 
 		@Override
 		public void remove() {
-			if (current == null) {
-				throw new IllegalStateException("Use next()!");
+			starter();
+			if (hasPrev()) {
+				current.getPrev().setNext(current.getNext());
+			} else {
+				head = current.getNext();
+				head.setPrev(null);
 			}
-			previous.setNext(current.getNext());
-			if (!hasNext()) {
-				tail = previous;
+			if (hasNext()) {
+				current.getNext().setPrev(current.getPrev());
+			} else {
+				tail = current.getPrev();
+				tail.setNext(null);
 			}
-			if (current == head) {
-				head = head.getNext();
-			}
+			current = current.getNext();
+			elementos--;
 		}
-
+		
 		@Override
-		public void append(String dado) {
-			// TODO Auto-generated method stub
+		public int compare(String comparable) {
+			return current.dado.compareToIgnoreCase(comparable);
+		}
+		
+		public void insertInOrder(String dado) {
+			int comp = current.dado.compareToIgnoreCase(dado);
+			
+			if (comp == 0) { // posição igual
+				
+			} else if (comp > 0) { // vai antes
+				int compP = current.getPrev().dado.compareToIgnoreCase(dado);
+				
+				
+			} else if (comp < 0) { // vai depois
+				
+			}
 			
 		}
-
+		
+		public boolean sortedInsert(String dado) {
+			int compC = current.dado.compareToIgnoreCase(dado);
+			int compN = current.getNext().dado.compareToIgnoreCase(dado);
+			//System.out.println(compC + "," + compN);
+			if (compC <= 0 && compN >= 0) {
+				insertNext(dado);
+				//System.out.println(current.dado + "," + current.getNext().dado);
+				return true;
+			} else {
+				next();
+				return false;
+			}
+		}
 	}	
 }
