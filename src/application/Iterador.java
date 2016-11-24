@@ -8,7 +8,7 @@ public interface Iterador extends Iterator<String> {
 	boolean hasPrev();
 	String prev();
 	String now();
-	int compare(String comparable);
+	//int compare(String comparable);
 	void goToTail();
 	void goToHead();
 	void starter();

@@ -55,7 +55,7 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 	//	Elo;
 	//===============================================================
 	
-	private class Node {
+	protected class Node {
 		
 		public final String dado;
 		private Node prevNode;
@@ -194,6 +194,9 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 			elementos--;
 		}
 		
+		
+		
+		/*
 		@Override
 		public int compare(String comparable) {
 			return current.dado.compareToIgnoreCase(comparable);
@@ -211,9 +214,9 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 			} else if (comp < 0) { // vai depois
 				
 			}
-			
-		}
+		}*/
 		
+		////////////
 		public boolean sortedInsert(String dado) {
 			int compC = current.dado.compareToIgnoreCase(dado);
 			int compN = current.getNext().dado.compareToIgnoreCase(dado);
@@ -227,5 +230,25 @@ public class ListaDuplamenteEncadeada implements Iterable<String> {
 				return false;
 			}
 		}
+		////////////
+		
+		/*public boolean sortedInsert(String dado) {
+			int compC = now().dado.compareToIgnoreCase(dado);
+			if (!hasNext()) {
+				if (compC <= 0) {
+					insertNext(dado);
+					return true;
+				}
+			}			
+
+			int compN = current.getNext().dado.compareToIgnoreCase(dado);
+			if (compC <= 0 && compN >= 0) {
+				insertNext(dado);
+				return true;
+			} else {
+				next();
+				return false;
+			}
+		}*/
 	}	
 }
